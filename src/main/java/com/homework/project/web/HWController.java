@@ -2,6 +2,7 @@ package com.homework.project.web;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 import com.homework.project.model.Weather;
 
@@ -42,15 +43,26 @@ public class HWController {
     @RequestMapping(value = "/test-put", method = RequestMethod.GET)
     @ResponseBody
     public String testPUT(){
-        Weather weather = getRestTemplate().getForObject(
-            "http://localhost:8080/rest/weatherdata/1",
-            Weather.class
-        );
-        weather.setMinTemperature(-273.15);
-
-        // PUT
-        getRestTemplate().put("http://localhost:8080/rest/weatherdata/1", weather);
-        return "";
+    	
+    	// Workaround to get a single Weather object
+    	// As the homework doesn't define a way to get a single one by ID
+    	// Implementing a way to do so creates ambiguity and can be hard to wrap
+    	// our head around it
+    	List<?> raw = getRestTemplate().getForObject(
+			"http://localhost:8080/rest/weatherdata",
+			List.class
+		);
+    	
+    	// PUT
+    	try {
+    		Weather weather = (Weather) raw.get(0);
+    		weather.setMinTemperature(-237.15);
+    		
+            getRestTemplate().put("http://localhost:8080/rest/weatherdata/" + weather.getID(), weather);
+            return "";
+    	} catch (Exception E) {
+    		return "error";
+    	}
 
     }
 

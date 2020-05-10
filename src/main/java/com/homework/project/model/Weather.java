@@ -31,6 +31,15 @@ public class Weather {
     @Column(name = "temperature_max")
     private double maxTemperature;
 
+    //// Constructors
+    // Partial parametric
+    public Weather(String city, LocalDate dateMeasured, double minTemperature, double maxTemperatue){
+        setCity(city);
+        setDateMeasured(dateMeasured);
+        setMinTemperature(minTemperature);
+        setMaxTemperature(maxTemperature);
+    }
+
     //// Methods
     // Utility
     public void acquireFrom(Weather weather){

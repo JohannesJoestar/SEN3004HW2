@@ -25,6 +25,13 @@ public class WeatherRepository implements IWeather {
         return manager.find(Weather.class, ID);
     }
     @Override
+    public List<Weather> findByCity(String city){
+        return manager
+            .createQuery("FROM weatherdata WHERE city = :city", Weather.class)
+            .setParameter("city", city)
+            .getResultList();
+    }
+    @Override
     public Weather update(Weather weather){
         return manager.merge(weather);
     }

@@ -30,6 +30,10 @@ public class WeatherService implements IWeather {
         return repository.findByID(ID);
     }
     @Override
+    public List<Weather> findByCity(String city){
+        return repository.findByCity(city);
+    }
+    @Override
     public Weather update(Weather weather) {
         return repository.update(weather);
     }

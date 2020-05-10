@@ -10,6 +10,7 @@ public interface IWeather {
     // Interface bodies
 	public List<Weather> findAll();
     public Weather findByID(long ID);
+    public List<Weather> findByCity(String city);
     public Weather update(Weather weather);
 	public void create(Weather weather);
 	public void delete(long ID);

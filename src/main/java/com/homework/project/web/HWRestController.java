@@ -41,6 +41,24 @@ public class HWRestController {
         }
     }
     
+    @RequestMapping(value = "/weatherdata/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Weather> getWeatherDataByID(@RequestParam("id") long ID) {
+        try {
+            Weather weather = service.findByID(ID);
+
+            // HTTP 200
+            return ResponseEntity.ok(weather);
+        } catch (NoResultException NRE){
+
+            // HTTP 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception E){
+
+            // HTTP 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+	}
+
     @RequestMapping(value = "/weatherdata/{city}", method = RequestMethod.GET)
 	public ResponseEntity<List<Weather>> getWeatherDataByCity(@RequestParam("city") String city) {
         try {

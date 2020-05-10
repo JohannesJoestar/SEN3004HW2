@@ -32,6 +32,13 @@ public class Weather {
     private double maxTemperature;
 
     //// Methods
+    // Utility
+    public void acquireFrom(Weather weather){
+        setCity(weather.getCity());
+        setDateMeasured(weather.getDateMeasured());
+        setMinTemperature(weather.getMinTemperature());
+        setMaxTemperature(weather.getMaxTemperature());
+    }
     // Access modifiers
     public long getID() {
         return ID;

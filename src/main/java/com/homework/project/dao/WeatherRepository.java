@@ -3,14 +3,19 @@ package com.homework.project.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.homework.project.model.Weather;
 import com.homework.project.service.IWeather;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class WeatherRepository implements IWeather {
 
     //// Properties
     // References
+    @PersistenceContext
     private EntityManager manager;
 
     //// Methods

@@ -32,6 +32,13 @@ public class Weather {
     private double maxTemperature;
 
     //// Constructors
+    // Default
+    public Weather() {
+    	// Yeah, it's not a good idea to forget implementing the default constructor
+    	// if you have already implemented a parametric one otherwise
+    	// you will get lost in completely irrelevant spring errors and spend three hours
+    	// and finally coming to the solution after explicit debugging like me...
+    }
     // Partial parametric
     public Weather(String city, LocalDate dateMeasured, double minTemperature, double maxTemperature){
         setCity(city);

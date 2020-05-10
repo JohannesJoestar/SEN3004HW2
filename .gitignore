@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+target/classes/META-INF/maven/com.homework/project/pom.properties

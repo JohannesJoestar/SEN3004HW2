@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.homework.project.dao.HWRepository;
+import com.homework.project.dao.WeatherRepository;
 import com.homework.project.model.Weather;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class HWService implements IWeather {
+public class WeatherService implements IWeather {
 
     //// Properties
     // References
     @Autowired
-    HWRepository repository;
+    WeatherRepository repository;
 
     //// Methods
     // Interface implementation

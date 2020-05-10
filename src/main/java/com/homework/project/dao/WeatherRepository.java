@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import com.homework.project.model.Weather;
 import com.homework.project.service.IWeather;
 
-public class HWRepository implements IWeather {
+public class WeatherRepository implements IWeather {
 
     //// Properties
     // References

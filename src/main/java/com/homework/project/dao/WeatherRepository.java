@@ -22,7 +22,7 @@ public class WeatherRepository implements IWeather {
     // Interface implementation
     @Override
     public List<Weather> findAll(){
-        return manager.createQuery("FROM Weatherdata", Weather.class)
+        return manager.createQuery("FROM Weather", Weather.class)
             .getResultList();
     }
     @Override
@@ -32,7 +32,7 @@ public class WeatherRepository implements IWeather {
     @Override
     public List<Weather> findByCity(String city){
         return manager
-            .createQuery("FROM Weatherdata WHERE city = :city", Weather.class)
+            .createQuery("FROM Weather WHERE city = :city", Weather.class)
             .setParameter("city", city)
             .getResultList();
     }

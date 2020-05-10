@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -60,7 +59,7 @@ public class HWRestController {
 	}
 
     @RequestMapping(value = "/weatherdata/{city}", method = RequestMethod.GET)
-	public ResponseEntity<List<Weather>> getWeatherDataByCity(@RequestParam("city") String city) {
+	public ResponseEntity<List<Weather>> getWeatherDataByCity(@PathVariable("city") String city) {
         try {
             List<Weather> data = service.findByCity(city);
 

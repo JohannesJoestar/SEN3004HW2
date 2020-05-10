@@ -33,7 +33,7 @@ public class Weather {
 
     //// Constructors
     // Partial parametric
-    public Weather(String city, LocalDate dateMeasured, double minTemperature, double maxTemperatue){
+    public Weather(String city, LocalDate dateMeasured, double minTemperature, double maxTemperature){
         setCity(city);
         setDateMeasured(dateMeasured);
         setMinTemperature(minTemperature);

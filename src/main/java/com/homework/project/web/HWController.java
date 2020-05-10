@@ -2,7 +2,9 @@ package com.homework.project.web;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Random;
 
 import com.homework.project.model.Weather;
 
@@ -26,42 +28,48 @@ public class HWController {
     @RequestMapping(value = "/test-post", method = RequestMethod.GET)
     @ResponseBody
     public String testPOST(){
-        Weather weather = new Weather(
-            "Osaka",
-            LocalDate.of(2020, Month.MAY, 3),
-            17.0,
-            26.0
-        );
+    	try {
+            Weather weather = new Weather(
+                "Osaka",
+                LocalDate.of(2020, Month.MAY, 3),
+                17.0,
+                26.0
+            );
 
-        // POST
-        return getRestTemplate().postForLocation(
-            "http://localhost:8080/rest/weatherdata",
-            weather
-        ).toString();
+            // POST
+            getRestTemplate().postForLocation(
+                "http://localhost:8080/rest/weatherdata",
+                weather
+            );
+            return "Succesfully POSTed";
+    	} catch (Exception E) {
+    		return E.getMessage();
+    	}
     }
     
     @RequestMapping(value = "/test-put", method = RequestMethod.GET)
     @ResponseBody
     public String testPUT(){
-    	
-    	// Workaround to get a single Weather object
-    	// As the homework doesn't define a way to get a single one by ID
-    	// Implementing a way to do so creates ambiguity and can be hard to wrap
-    	// our head around it
-    	List<?> raw = getRestTemplate().getForObject(
-			"http://localhost:8080/rest/weatherdata",
-			List.class
-		);
-    	
-    	// PUT
     	try {
-    		Weather weather = (Weather) raw.get(0);
+    		
+        	// Workaround to get a single Weather object
+        	// As the homework doesn't define a way to get a single one by ID
+        	// Implementing a way to do so creates ambiguity and can be hard to wrap
+        	// our head around it
+        	Weather[] data = getRestTemplate().getForObject(
+    			"http://localhost:8080/rest/weatherdata",
+    			Weather[].class
+    		);
+    		
+        	// PUT
+			Weather weather = data[0];
     		weather.setMinTemperature(-237.15);
     		
             getRestTemplate().put("http://localhost:8080/rest/weatherdata/" + weather.getID(), weather);
-            return "";
+            return "Successfully PUT.";
+
     	} catch (Exception E) {
-    		return "error";
+    		return E.getMessage();
     	}
 
     }
@@ -69,9 +77,24 @@ public class HWController {
 	@RequestMapping(value = "/test-delete", method = RequestMethod.GET)
 	@ResponseBody
 	public String testDELETE() {
+		try {
+			// DELETE a random Weather data
+	    	Weather[] data = getRestTemplate().getForObject(
+				"http://localhost:8080/rest/weatherdata",
+				Weather[].class
+			);
+	    	if (data.length == 0) {
+	    		return "There is nothing to DELETE.";
+	    	} else {
+	    		
+	        	long sacrifice = data[data.length == 1 ? 0 : new Random().nextInt(data.length - 1)].getID();
 
-        // DELETE
-		getRestTemplate().delete("http://localhost:8080/rest/weatherdata/2");
-		return "";
+	            // DELETE
+	    		getRestTemplate().delete("http://localhost:8080/rest/weatherdata/" + sacrifice);
+	    		return "Succesfully DELETEd Weather " + sacrifice + ".";
+	    	}
+		} catch (Exception E) {
+			return E.getMessage();
+		}
 	}
 }
